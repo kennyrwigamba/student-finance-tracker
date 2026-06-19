@@ -783,3 +783,57 @@ mark.search-match {
   font-size: 0.8rem;
   padding: 0.25rem;
 }
+
+/* Tablet View */
+@media (min-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-nav {
+    width: auto;
+  }
+  
+  .stats-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .stat-card {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .form-row {
+    flex-direction: row;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  .list-controls {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  
+  .search-box {
+    flex: 2;
+  }
+  
+  .filter-controls {
+    flex: 3;
+    flex-direction: row;
+  }
+  
+  .settings-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .settings-card {
+    flex: 1 1 45%;
+  }
+}
