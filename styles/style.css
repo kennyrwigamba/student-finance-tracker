@@ -837,3 +837,22 @@ mark.search-match {
     flex: 1 1 45%;
   }
 }
+
+/* Desktop View */
+@media (min-width: 1024px) {
+  .transactions-layout {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .form-card {
+    flex: 1;
+    max-width: 400px;
+    position: sticky;
+    top: 80px;
+  }
+  
+  .list-card {
+    flex: 2;
+  }
+}
