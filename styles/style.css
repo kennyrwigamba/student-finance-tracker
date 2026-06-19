@@ -91,9 +91,10 @@ body {
   gap: 1rem;
 }
 
-.logo-area h1 {
+.logo-area h1 a{
   font-size: 1.25rem;
-  color: var(--text-secondary)
+  color: var(--text-secondary);
+  text-decoration: none;
 }
 
 .app-nav {
@@ -362,7 +363,7 @@ main:focus {
 }
 
 .input-currency-wrapper input {
-  padding-left: 1.5rem;
+  padding-left: 2.95rem;
 }
 
 .error-msg {

@@ -2,68 +2,67 @@ import { state } from './state.js';
 import { compileRegex, highlight } from './search.js';
 import { validateTransaction } from './validators.js';
 
-const dom = {
-  tabs: document.querySelectorAll('.nav-btn'),
-  sections: document.querySelectorAll('.tab-content'),
-  ariaAlerts: document.getElementById('aria-alerts'),
-  
-  statCount: document.getElementById('stat-count'),
-  statSpent: document.getElementById('stat-spent'),
-  statTopCat: document.getElementById('stat-top-cat'),
-  statTopCatAmt: document.getElementById('stat-top-cat-amt'),
-  statBudgetRemaining: document.getElementById('stat-budget-remaining'),
-  budgetProgressBar: document.getElementById('budget-progress-bar'),
-  budgetCard: document.getElementById('budget-cap-card'),
-  statBudgetStatus: document.getElementById('stat-budget-status'),
-  chartBarsContainer: document.getElementById('chart-bars-container'),
-  
-  addForm: document.getElementById('add-transaction-form'),
-  formCurrencySymbol: document.getElementById('form-currency-symbol'),
-  txnCategory: document.getElementById('txn-category'),
-  transactionsContainer: document.getElementById('transactions-container'),
-  
-  searchInput: document.getElementById('search-input'),
-  searchCaseSensitive: document.getElementById('search-case-sensitive'),
-  searchFeedback: document.getElementById('search-feedback'),
-  filterCategory: document.getElementById('filter-category'),
-  sortBy: document.getElementById('sort-by'),
-  
-  activeCurrencySelect: document.getElementById('active-currency-select'),
-  rateEur: document.getElementById('rate-eur'),
-  rateRwf: document.getElementById('rate-rwf'),
-  budgetCapInput: document.getElementById('budget-cap-input'),
-  addCategoryForm: document.getElementById('add-category-form'),
-  newCategoryInput: document.getElementById('new-category-input'),
-  categoryAddError: document.getElementById('category-add-error'),
-  categoriesList: document.getElementById('categories-list'),
-  portabilityStatus: document.getElementById('portability-status'),
-  fileImport: document.getElementById('file-import')
-};
+// Elements Variables
+const tabs = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('.tab-content');
+const ariaAlerts = document.getElementById('aria-alerts');
+
+const statCount = document.getElementById('stat-count');
+const statSpent = document.getElementById('stat-spent');
+const statTopCat = document.getElementById('stat-top-cat');
+const statTopCatAmt = document.getElementById('stat-top-cat-amt');
+const statBudgetRemaining = document.getElementById('stat-budget-remaining');
+const budgetProgressBar = document.getElementById('budget-progress-bar');
+const budgetCard = document.getElementById('budget-cap-card');
+const statBudgetStatus = document.getElementById('stat-budget-status');
+const chartBarsContainer = document.getElementById('chart-bars-container');
+
+const addForm = document.getElementById('add-transaction-form');
+const formCurrencySymbol = document.getElementById('form-currency-symbol');
+const txnCategory = document.getElementById('txn-category');
+const transactionsContainer = document.getElementById('transactions-container');
+
+const searchInput = document.getElementById('search-input');
+const searchCaseSensitive = document.getElementById('search-case-sensitive');
+const searchFeedback = document.getElementById('search-feedback');
+const filterCategory = document.getElementById('filter-category');
+const sortBy = document.getElementById('sort-by');
+
+const activeCurrencySelect = document.getElementById('active-currency-select');
+const rateEur = document.getElementById('rate-eur');
+const rateRwf = document.getElementById('rate-rwf');
+const budgetCapInput = document.getElementById('budget-cap-input');
+const addCategoryForm = document.getElementById('add-category-form');
+const newCategoryInput = document.getElementById('new-category-input');
+const categoryAddError = document.getElementById('category-add-error');
+const categoriesList = document.getElementById('categories-list');
+const portabilityStatus = document.getElementById('portability-status');
+const fileImport = document.getElementById('file-import');
 
 let editingTransactionId = null;
 
 // Announces text to screen readers
 export function announceToScreenReader(text, assertive = false) {
-  if (!dom.ariaAlerts) return;
-  dom.ariaAlerts.setAttribute('aria-live', assertive ? 'assertive' : 'polite');
-  dom.ariaAlerts.textContent = text;
+  if (!ariaAlerts) return;
+  ariaAlerts.setAttribute('aria-live', assertive ? 'assertive' : 'polite');
+  ariaAlerts.textContent = text;
   
   setTimeout(() => {
-    if (dom.ariaAlerts.textContent === text) {
-      dom.ariaAlerts.textContent = '';
+    if (ariaAlerts.textContent === text) {
+      ariaAlerts.textContent = '';
     }
   }, 3000);
 }
 
 // Switches tab views
 export function switchTab(tabControlId) {
-  dom.tabs.forEach(btn => {
+  tabs.forEach(btn => {
     const isTarget = btn.getAttribute('aria-controls') === tabControlId;
     btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
     btn.classList.toggle('active', isTarget);
   });
   
-  dom.sections.forEach(sec => {
+  sections.forEach(sec => {
     const isTarget = sec.id === tabControlId;
     sec.classList.toggle('hidden', !isTarget);
     if (isTarget) {
@@ -76,13 +75,13 @@ export function switchTab(tabControlId) {
 
 // Fills fields in settings tab
 export function populateSettings() {
-  dom.activeCurrencySelect.value = state.settings.activeCurrency;
-  dom.rateEur.value = state.settings.currencies.EUR;
-  dom.rateRwf.value = state.settings.currencies.RWF;
-  dom.budgetCapInput.value = state.settings.budgetCap;
+  activeCurrencySelect.value = state.settings.activeCurrency;
+  rateEur.value = state.settings.currencies.EUR;
+  rateRwf.value = state.settings.currencies.RWF;
+  budgetCapInput.value = state.settings.budgetCap;
   
-  const activeSymbol = state.settings.activeCurrency === 'RWF' ? 'RF ' : (state.settings.activeCurrency === 'EUR' ? '€' : '$');
-  dom.formCurrencySymbol.textContent = activeSymbol;
+  const activeSymbol = state.settings.activeCurrency === 'RWF' ? 'RWF ' : (state.settings.activeCurrency === 'EUR' ? '€' : '$');
+  formCurrencySymbol.textContent = activeSymbol;
 }
 
 // Updates categories list dropdowns and manager lists
@@ -94,20 +93,20 @@ export function renderCategories() {
   for (let i = 0; i < currentCategories.length; i++) {
     formOptionsHtml += `<option value="${currentCategories[i]}">${currentCategories[i]}</option>`;
   }
-  dom.txnCategory.innerHTML = formOptionsHtml;
+  txnCategory.innerHTML = formOptionsHtml;
   
   // Render options in filter dropdown
-  const prevFilterVal = dom.filterCategory.value;
+  const prevFilterVal = filterCategory.value;
   let filterOptionsHtml = '<option value="all">All Categories</option>';
   for (let i = 0; i < currentCategories.length; i++) {
     filterOptionsHtml += `<option value="${currentCategories[i]}">${currentCategories[i]}</option>`;
   }
-  dom.filterCategory.innerHTML = filterOptionsHtml;
+  filterCategory.innerHTML = filterOptionsHtml;
   
   if (currentCategories.includes(prevFilterVal) || prevFilterVal === 'all') {
-    dom.filterCategory.value = prevFilterVal;
+    filterCategory.value = prevFilterVal;
   } else {
-    dom.filterCategory.value = 'all';
+    filterCategory.value = 'all';
     state.filters.category = 'all';
   }
 
@@ -124,7 +123,7 @@ export function renderCategories() {
       </li>
     `;
   }
-  dom.categoriesList.innerHTML = listHtml;
+  categoriesList.innerHTML = listHtml;
 }
 
 // Calculates statistics and updates dashboard metrics
@@ -133,14 +132,14 @@ export function renderDashboard() {
   const activeCurrency = state.settings.activeCurrency;
   const budgetCapUsd = state.settings.budgetCap;
   
-  dom.statCount.textContent = txns.length;
+  statCount.textContent = txns.length;
   
   // Sum expenses using a simple loop
   let totalSpentUsd = 0;
   for (let i = 0; i < txns.length; i++) {
     totalSpentUsd += txns[i].amount;
   }
-  dom.statSpent.textContent = state.formatCurrency(totalSpentUsd, activeCurrency);
+  statSpent.textContent = state.formatCurrency(totalSpentUsd, activeCurrency);
   
   // Compute top category
   const categorySumsUsd = {};
@@ -164,9 +163,9 @@ export function renderDashboard() {
     }
   }
   
-  dom.statTopCat.textContent = topCat;
-  dom.statTopCatAmt.textContent = topCat !== '—' ? 
-    state.formatCurrency(topCatAmtUsd, activeCurrency) + " spent" : "$0.00 spent";
+  statTopCat.textContent = topCat;
+  statTopCatAmt.textContent = topCat !== '—' ? 
+    state.formatCurrency(topCatAmtUsd, activeCurrency) + " spent" : state.formatCurrency(0, activeCurrency) + " spent";
     
   // Calculate budget limit cap values
   const remainingUsd = budgetCapUsd - totalSpentUsd;
@@ -174,30 +173,30 @@ export function renderDashboard() {
   const remainingConverted = state.formatCurrency(Math.abs(remainingUsd), activeCurrency);
   
   const percentSpent = budgetCapUsd > 0 ? (totalSpentUsd / budgetCapUsd) * 100 : 0;
-  dom.budgetProgressBar.style.width = Math.min(100, percentSpent) + "%";
+  budgetProgressBar.style.width = Math.min(100, percentSpent) + "%";
   
-  dom.budgetCard.className = 'card stat-card';
-  dom.budgetProgressBar.className = 'progress-bar';
+  budgetCard.className = 'card stat-card';
+  budgetProgressBar.className = 'progress-bar';
   
   let screenReaderAnnouncement = "";
   
   if (totalSpentUsd > budgetCapUsd) {
-    dom.budgetCard.classList.add('danger-state');
-    dom.budgetProgressBar.classList.add('danger');
-    dom.statBudgetRemaining.textContent = "-" + remainingConverted;
-    dom.statBudgetStatus.textContent = "Over limit by " + remainingConverted + " of " + budgetCapConverted;
+    budgetCard.classList.add('danger-state');
+    budgetProgressBar.classList.add('danger');
+    statBudgetRemaining.textContent = "-" + remainingConverted;
+    statBudgetStatus.textContent = "Over limit by " + remainingConverted + " of " + budgetCapConverted;
     screenReaderAnnouncement = "Budget warning! You have exceeded your budget cap by " + remainingConverted;
     announceToScreenReader(screenReaderAnnouncement, true);
   } else if (percentSpent >= 80) {
-    dom.budgetCard.classList.add('warning-state');
-    dom.budgetProgressBar.classList.add('warning');
-    dom.statBudgetRemaining.textContent = remainingConverted;
-    dom.statBudgetStatus.textContent = "Remaining of " + budgetCapConverted + " limit";
+    budgetCard.classList.add('warning-state');
+    budgetProgressBar.classList.add('warning');
+    statBudgetRemaining.textContent = remainingConverted;
+    statBudgetStatus.textContent = "Remaining of " + budgetCapConverted + " limit";
     screenReaderAnnouncement = "Budget warning: You have spent 80% or more of your budget. " + remainingConverted + " remaining.";
     announceToScreenReader(screenReaderAnnouncement, false);
   } else {
-    dom.statBudgetRemaining.textContent = remainingConverted;
-    dom.statBudgetStatus.textContent = "Remaining of " + budgetCapConverted + " limit";
+    statBudgetRemaining.textContent = remainingConverted;
+    statBudgetStatus.textContent = "Remaining of " + budgetCapConverted + " limit";
   }
   
   renderTrendChart();
@@ -239,7 +238,7 @@ function renderTrendChart() {
   }
   
   if (maxDayAmountUsd === 0) {
-    dom.chartBarsContainer.innerHTML = '<div class="chart-empty-state">No transaction history in the last 7 days.</div>';
+    chartBarsContainer.innerHTML = '<div class="chart-empty-state">No transaction history in the last 7 days.</div>';
     return;
   }
   
@@ -264,25 +263,25 @@ function renderTrendChart() {
       </div>
     `;
   }
-  dom.chartBarsContainer.innerHTML = chartHtml;
+  chartBarsContainer.innerHTML = chartHtml;
 }
 
 // Renders sorting, searching, and filtering on the transactions list
 export function renderTransactionsList() {
   const activeCurrency = state.settings.activeCurrency;
   
-  const isCaseInsensitive = !dom.searchCaseSensitive.checked;
-  const searchPattern = dom.searchInput.value.trim();
+  const isCaseInsensitive = !searchCaseSensitive.checked;
+  const searchPattern = searchInput.value.trim();
   let searchRegex = null;
   
-  dom.searchFeedback.textContent = '';
+  searchFeedback.textContent = '';
   
   if (searchPattern !== "") {
     searchRegex = compileRegex(searchPattern, isCaseInsensitive ? 'i' : '');
     if (!searchRegex) {
-      dom.searchFeedback.textContent = "Invalid regular expression search pattern.";
-      dom.searchFeedback.className = "search-feedback-text error-msg";
-      dom.transactionsContainer.innerHTML = `<div class="empty-state"><p class="empty-state-title">Invalid Search Query</p><p>Review your regex syntax to resume list rendering.</p></div>`;
+      searchFeedback.textContent = "Invalid regular expression search pattern.";
+      searchFeedback.className = "search-feedback-text error-msg";
+      transactionsContainer.innerHTML = `<div class="empty-state"><p class="empty-state-title">Invalid Search Query</p><p>Review your regex syntax to resume list rendering.</p></div>`;
       return;
     }
   }
@@ -306,7 +305,7 @@ export function renderTransactionsList() {
   }
 
   // Sort records
-  const sortOption = dom.sortBy.value;
+  const sortOption = sortBy.value;
   filtered.sort((a, b) => {
     if (sortOption === 'date-desc') {
       if (a.date !== b.date) {
@@ -336,22 +335,22 @@ export function renderTransactionsList() {
   });
 
   if (filtered.length === 0) {
-    dom.transactionsContainer.innerHTML = `
+    transactionsContainer.innerHTML = `
       <div class="empty-state">
         <p class="empty-state-title">No transactions found</p>
         <p>Try clearing filters or adding standard transaction records.</p>
       </div>
     `;
     if (searchRegex) {
-      dom.searchFeedback.textContent = "0 matches found.";
-      dom.searchFeedback.className = "search-feedback-text";
+      searchFeedback.textContent = "0 matches found.";
+      searchFeedback.className = "search-feedback-text";
     }
     return;
   }
 
   if (searchRegex) {
-    dom.searchFeedback.textContent = filtered.length + " matching result(s) found.";
-    dom.searchFeedback.className = "search-feedback-text success";
+    searchFeedback.textContent = filtered.length + " matching result(s) found.";
+    searchFeedback.className = "search-feedback-text success";
   }
 
   let html = `
@@ -425,13 +424,13 @@ export function renderTransactionsList() {
     </table>
   `;
 
-  dom.transactionsContainer.innerHTML = html;
+  transactionsContainer.innerHTML = html;
   bindTableActionListeners();
 }
 
 // Binds actions for inline editing/deletes
 function bindTableActionListeners() {
-  const container = dom.transactionsContainer;
+  const container = transactionsContainer;
   
   container.querySelectorAll('.btn-inline-action.edit').forEach(btn => {
     btn.addEventListener('click', () => {

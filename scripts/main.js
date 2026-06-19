@@ -9,42 +9,40 @@ import {
   announceToScreenReader
 } from './ui.js';
 
-// DOM Elements Cache
-const dom = {
-  tabs: document.querySelectorAll('.nav-btn'),
-  addForm: document.getElementById('add-transaction-form'),
-  txnDesc: document.getElementById('txn-description'),
-  txnAmt: document.getElementById('txn-amount'),
-  txnCat: document.getElementById('txn-category'),
-  txnDate: document.getElementById('txn-date'),
-  
-  descErr: document.getElementById('desc-error'),
-  amtErr: document.getElementById('amount-error'),
-  catErr: document.getElementById('category-error'),
-  dateErr: document.getElementById('date-error'),
-  
-  searchInput: document.getElementById('search-input'),
-  searchCaseSensitive: document.getElementById('search-case-sensitive'),
-  filterCategory: document.getElementById('filter-category'),
-  sortBy: document.getElementById('sort-by'),
-  
-  currencyForm: document.getElementById('settings-currency-form'),
-  activeCurrencySelect: document.getElementById('active-currency-select'),
-  rateEur: document.getElementById('rate-eur'),
-  rateRwf: document.getElementById('rate-rwf'),
-  
-  budgetForm: document.getElementById('settings-budget-form'),
-  budgetCapInput: document.getElementById('budget-cap-input'),
-  
-  addCategoryForm: document.getElementById('add-category-form'),
-  newCategoryInput: document.getElementById('new-category-input'),
-  categoryAddError: document.getElementById('category-add-error'),
-  categoriesList: document.getElementById('categories-list'),
-  
-  btnExport: document.getElementById('btn-export'),
-  fileImport: document.getElementById('file-import'),
-  portabilityStatus: document.getElementById('portability-status')
-};
+// Elements Variables
+const tabs = document.querySelectorAll('.nav-btn');
+const addForm = document.getElementById('add-transaction-form');
+const txnDesc = document.getElementById('txn-description');
+const txnAmt = document.getElementById('txn-amount');
+const txnCat = document.getElementById('txn-category');
+const txnDate = document.getElementById('txn-date');
+
+const descErr = document.getElementById('desc-error');
+const amtErr = document.getElementById('amount-error');
+const catErr = document.getElementById('category-error');
+const dateErr = document.getElementById('date-error');
+
+const searchInput = document.getElementById('search-input');
+const searchCaseSensitive = document.getElementById('search-case-sensitive');
+const filterCategory = document.getElementById('filter-category');
+const sortBy = document.getElementById('sort-by');
+
+const currencyForm = document.getElementById('settings-currency-form');
+const activeCurrencySelect = document.getElementById('active-currency-select');
+const rateEur = document.getElementById('rate-eur');
+const rateRwf = document.getElementById('rate-rwf');
+
+const budgetForm = document.getElementById('settings-budget-form');
+const budgetCapInput = document.getElementById('budget-cap-input');
+
+const addCategoryForm = document.getElementById('add-category-form');
+const newCategoryInput = document.getElementById('new-category-input');
+const categoryAddError = document.getElementById('category-add-error');
+const categoriesList = document.getElementById('categories-list');
+
+const btnExport = document.getElementById('btn-export');
+const fileImport = document.getElementById('file-import');
+const portabilityStatus = document.getElementById('portability-status');
 
 // Start application on window load
 window.addEventListener('DOMContentLoaded', async () => {
@@ -87,7 +85,7 @@ function handleHashRouting() {
 // Binds all form actions and inputs
 function bindEventListeners() {
   // Navigation tabs
-  dom.tabs.forEach(btn => {
+  tabs.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetSection = btn.getAttribute('aria-controls');
       switchTab(targetSection);
@@ -97,25 +95,25 @@ function bindEventListeners() {
   window.addEventListener('hashchange', handleHashRouting);
 
   // Clear inputs errors when typing
-  dom.txnDesc.addEventListener('input', () => dom.descErr.textContent = '');
-  dom.txnAmt.addEventListener('input', () => dom.amtErr.textContent = '');
-  dom.txnCat.addEventListener('change', () => dom.catErr.textContent = '');
-  dom.txnDate.addEventListener('input', () => dom.dateErr.textContent = '');
+  txnDesc.addEventListener('input', () => descErr.textContent = '');
+  txnAmt.addEventListener('input', () => amtErr.textContent = '');
+  txnCat.addEventListener('change', () => catErr.textContent = '');
+  txnDate.addEventListener('input', () => dateErr.textContent = '');
 
   // Add Transaction Form
-  dom.addForm.addEventListener('submit', (e) => {
+  addForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    dom.descErr.textContent = '';
-    dom.amtErr.textContent = '';
-    dom.catErr.textContent = '';
-    dom.dateErr.textContent = '';
+    descErr.textContent = '';
+    amtErr.textContent = '';
+    catErr.textContent = '';
+    dateErr.textContent = '';
 
-    const desc = dom.txnDesc.value.trim();
-    const amountRawStr = dom.txnAmt.value.trim();
+    const desc = txnDesc.value.trim();
+    const amountRawStr = txnAmt.value.trim();
     const amountVal = parseFloat(amountRawStr) || 0;
-    const cat = dom.txnCat.value;
-    const date = dom.txnDate.value;
+    const cat = txnCat.value;
+    const date = txnDate.value;
     
     // Validate values in the active view currency
     const validationResult = validateTransaction({
@@ -127,10 +125,10 @@ function bindEventListeners() {
 
     if (!validationResult.isValid) {
       const errors = validationResult.errors;
-      if (errors.description) dom.descErr.textContent = errors.description;
-      if (errors.amount) dom.amtErr.textContent = errors.amount;
-      if (errors.category) dom.catErr.textContent = errors.category;
-      if (errors.date) dom.dateErr.textContent = errors.date;
+      if (errors.description) descErr.textContent = errors.description;
+      if (errors.amount) amtErr.textContent = errors.amount;
+      if (errors.category) catErr.textContent = errors.category;
+      if (errors.date) dateErr.textContent = errors.date;
       announceToScreenReader("Validation failed.", true);
       return;
     }
@@ -147,40 +145,40 @@ function bindEventListeners() {
     });
 
     announceToScreenReader(`Transaction "${desc}" added.`);
-    dom.addForm.reset();
+    addForm.reset();
     renderTransactionsList();
     renderDashboard();
   });
 
   // Filters and search controls
-  dom.searchInput.addEventListener('input', () => {
-    state.filters.searchPattern = dom.searchInput.value;
+  searchInput.addEventListener('input', () => {
+    state.filters.searchPattern = searchInput.value;
     renderTransactionsList();
   });
 
-  dom.searchCaseSensitive.addEventListener('change', () => {
+  searchCaseSensitive.addEventListener('change', () => {
     renderTransactionsList();
   });
 
-  dom.filterCategory.addEventListener('change', () => {
-    state.filters.category = dom.filterCategory.value;
+  filterCategory.addEventListener('change', () => {
+    state.filters.category = filterCategory.value;
     renderTransactionsList();
   });
 
-  dom.sortBy.addEventListener('change', () => {
+  sortBy.addEventListener('change', () => {
     renderTransactionsList();
   });
 
   // Settings: Currencies update
-  dom.currencyForm.addEventListener('submit', (e) => {
+  currencyForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const selectedCurr = dom.activeCurrencySelect.value;
-    const rateEur = parseFloat(dom.rateEur.value) || 0.87;
-    const rateRwf = parseFloat(dom.rateRwf.value) || 1460;
+    const selectedCurr = activeCurrencySelect.value;
+    const eurVal = parseFloat(rateEur.value) || 0.87;
+    const rwfVal = parseFloat(rateRwf.value) || 1460;
 
-    state.updateCurrencyRate('EUR', rateEur);
-    state.updateCurrencyRate('RWF', rateRwf);
+    state.updateCurrencyRate('EUR', eurVal);
+    state.updateCurrencyRate('RWF', rwfVal);
     state.setActiveCurrency(selectedCurr);
 
     announceToScreenReader(`Currency view updated to ${selectedCurr}`);
@@ -194,10 +192,10 @@ function bindEventListeners() {
   });
 
   // Settings: Budget cap limit
-  dom.budgetForm.addEventListener('submit', (e) => {
+  budgetForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const capUsd = parseFloat(dom.budgetCapInput.value) || 0;
+    const capUsd = parseFloat(budgetCapInput.value) || 0;
     state.setBudgetCap(capUsd);
     
     announceToScreenReader(`Budget cap updated to ${state.formatCurrency(capUsd, state.settings.activeCurrency)}`);
@@ -206,34 +204,34 @@ function bindEventListeners() {
   });
 
   // Settings: Add Category
-  dom.addCategoryForm.addEventListener('submit', (e) => {
+  addCategoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    dom.categoryAddError.textContent = '';
+    categoryAddError.textContent = '';
     
-    const catName = dom.newCategoryInput.value.trim();
+    const catName = newCategoryInput.value.trim();
     const regexCategory = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
     
     if (!catName) {
-      dom.categoryAddError.textContent = "Category name cannot be empty.";
+      categoryAddError.textContent = "Category name cannot be empty.";
       return;
     }
     if (!regexCategory.test(catName)) {
-      dom.categoryAddError.textContent = "Category must contain only letters, single spaces, or hyphens.";
+      categoryAddError.textContent = "Category must contain only letters, single spaces, or hyphens.";
       return;
     }
     
     const added = state.addCategory(catName);
     if (added) {
       announceToScreenReader(`Category "${catName}" added.`);
-      dom.newCategoryInput.value = '';
+      newCategoryInput.value = '';
       renderCategories();
     } else {
-      dom.categoryAddError.textContent = "Category already exists.";
+      categoryAddError.textContent = "Category already exists.";
     }
   });
 
   // Settings: Remove Category
-  dom.categoriesList.addEventListener('click', (e) => {
+  categoriesList.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-list-delete');
     if (!btn) return;
     
@@ -255,7 +253,7 @@ function bindEventListeners() {
   });
 
   // Portability: Export backup file
-  dom.btnExport.addEventListener('click', () => {
+  btnExport.addEventListener('click', () => {
     try {
       const dataStr = JSON.stringify(state.transactions, null, 2);
       const blob = new Blob([dataStr], { type: 'application/json' });
@@ -278,7 +276,7 @@ function bindEventListeners() {
   });
 
   // Portability: Import backup file
-  dom.fileImport.addEventListener('change', (e) => {
+  fileImport.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -294,11 +292,11 @@ function bindEventListeners() {
       } else {
         showPortabilityStatus("Import failed: " + result.error, "error");
       }
-      dom.fileImport.value = '';
+      fileImport.value = '';
     };
     reader.onerror = () => {
       showPortabilityStatus("Error reading JSON file.", "error");
-      dom.fileImport.value = '';
+      fileImport.value = '';
     };
     reader.readAsText(file);
   });
@@ -306,13 +304,13 @@ function bindEventListeners() {
 
 // Renders status label in portability card
 function showPortabilityStatus(text, type) {
-  dom.portabilityStatus.textContent = text;
-  dom.portabilityStatus.className = "status-msg " + type;
+  portabilityStatus.textContent = text;
+  portabilityStatus.className = "status-msg " + type;
   
   setTimeout(() => {
-    if (dom.portabilityStatus.textContent === text) {
-      dom.portabilityStatus.textContent = '';
-      dom.portabilityStatus.className = 'status-msg';
+    if (portabilityStatus.textContent === text) {
+      portabilityStatus.textContent = '';
+      portabilityStatus.className = 'status-msg';
     }
   }, 5000);
 }
