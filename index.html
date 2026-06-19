@@ -110,6 +110,106 @@
           </div>
         </div>
       </section>
+
+      <!-- 2. TRANSACTIONS SECTION -->
+      <section id="transactions" class="tab-content hidden" role="tabpanel" aria-labelledby="tab-transactions" tabindex="0">
+        <div class="section-header">
+          <h2>Manage Transactions</h2>
+          <p class="section-desc">Manage, search, and edit your transactions.</p>
+        </div>
+
+        <!-- Split Grid: Left Form, Right List -->
+        <div class="transactions-layout">
+          <!-- Add Form Card -->
+          <div class="card form-card">
+            <h3>Add New Transaction</h3>
+            <form id="add-transaction-form" novalidate>
+              <div class="form-group">
+                <label for="txn-description">Description / Title</label>
+                <input type="text" id="txn-description" class="input-control" name="description" placeholder="e.g. Chemistry Textbook" required aria-describedby="desc-error">
+                <span id="desc-error" class="error-msg" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="txn-amount">Amount</label>
+                <div class="input-currency-wrapper">
+                  <span id="form-currency-symbol" class="currency-prefix">$</span>
+                  <input type="number" id="txn-amount" class="input-control" name="amount" placeholder="0.00" step="0.01" required aria-describedby="amount-error">
+                </div>
+                <span id="amount-error" class="error-msg" aria-live="polite"></span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="txn-category">Category</label>
+                  <select id="txn-category" class="input-control" name="category" required aria-describedby="category-error">
+                    <!-- Loaded dynamically -->
+                  </select>
+                  <span id="category-error" class="error-msg" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="txn-date">Date</label>
+                  <input type="date" id="txn-date" class="input-control" name="date" required aria-describedby="date-error">
+                  <span id="date-error" class="error-msg" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary">Add Transaction</button>
+            </form>
+          </div>
+
+          <!-- Transaction List Card -->
+          <div class="card list-card">
+            <div class="list-controls">
+              <!-- Live Regex Search -->
+              <div class="search-box">
+                <label for="search-input" class="sr-only">Live Search</label>
+                <div class="search-input-container">
+                  <span class="search-icon" aria-hidden="true">
+                    <i class="hgi hgi-stroke hgi-rounded hgi-search-01"></i>
+                  </span>
+                  <input type="search" id="search-input" class="input-control" placeholder="Search transactions...">
+                </div>
+                <div class="search-options">
+                  <label class="checkbox-label" for="search-case-sensitive">
+                    <input type="checkbox" id="search-case-sensitive">
+                    Case Sensitive
+                  </label>
+                </div>
+                <span id="search-feedback" class="search-feedback-text" aria-live="polite"></span>
+              </div>
+
+              <!-- Sorting and Filter Category -->
+              <div class="filter-controls">
+                <div class="control-group">
+                  <label for="filter-category">Category</label>
+                  <select id="filter-category" class="input-control">
+                    <option value="all">All Categories</option>
+                    <!-- Loaded dynamically -->
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label for="sort-by">Sort By</label>
+                  <select id="sort-by" class="input-control">
+                    <option value="date-desc">Date (Newest)</option>
+                    <option value="date-asc">Date (Oldest)</option>
+                    <option value="amount-desc">Amount (Highest)</option>
+                    <option value="amount-asc">Amount (Lowest)</option>
+                    <option value="description-asc">Title (A &rarr; Z)</option>
+                    <option value="description-desc">Title (Z &rarr; A)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table/List Display -->
+            <div id="transactions-container">
+              <!-- Rendered by JS. Contains table for Desktop/Tablet and Cards for Mobile. -->
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
