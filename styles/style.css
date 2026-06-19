@@ -64,7 +64,7 @@ body {
 }
 
 *:focus-visible {
-  outline: 3px solid var(--primary-color);
+  outline: none;
 }
 
 /* Layout & Header */
@@ -835,6 +835,12 @@ mark.search-match {
   
   .settings-card {
     flex: 1 1 45%;
+  }
+
+  .footer-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
   }
 }
 
