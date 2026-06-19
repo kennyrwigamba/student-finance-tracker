@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Validation Tests - Student Finance Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #1e3a8a;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+    .test-summary {
+      background-color: #ffffff;
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .badge.total { background-color: #64748b; }
+    .badge.passed { background-color: #10b981; }
+    .badge.failed { background-color: #ef4444; }
+    .test-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .test-item {
+      background-color: #ffffff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      border-left: 6px solid;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .test-item.pass {
+      border-left-color: #10b981;
+    }
+    .test-item.fail {
+      border-left-color: #ef4444;
+      background-color: #fef2f2;
+    }
+    .test-name {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .test-item.fail .test-name {
+      color: #991b1b;
+    }
+    .test-details {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #64748b;
+      background-color: #f1f5f9;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+    .test-item.fail .test-details {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">&larr; Back to App</a>
+  <h1>Validation Test Suite</h1>
+  <p class="subtitle">Unit tests validating core regex expressions and the transaction schema validators.</p>
+  
+  <div class="test-summary">
+    <div>Total Tests: <span id="total-tests" class="badge total">0</span></div>
+    <div>Passed: <span id="passed-tests" class="badge passed">0</span></div>
+    <div>Failed: <span id="failed-tests" class="badge failed">0</span></div>
+  </div>
+
+  <ul id="test-results" class="test-list"></ul>
+
+  <script type="module">
+    import { REGEX, validateTransaction } from './scripts/validators.js';
+
+    const resultsList = document.getElementById('test-results');
+    let total = 0;
+    let passed = 0;
+    let failed = 0;
+
+    function assert(name, condition, details = "") {
+      total++;
+      const li = document.createElement('li');
+      li.className = 'test-item ' + (condition ? 'pass' : 'fail');
+      
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'test-name';
+      nameDiv.textContent = `${name} - ${condition ? '✓ PASSED' : '✗ FAILED'}`;
+      li.appendChild(nameDiv);
+
+      if (details) {
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'test-details';
+        detailsDiv.textContent = details;
+        li.appendChild(detailsDiv);
+      }
+
+      resultsList.appendChild(li);
+
+      if (condition) {
+        passed++;
+      } else {
+        failed++;
+      }
+      updateSummary();
+    }
+
+    function updateSummary() {
+      document.getElementById('total-tests').textContent = total;
+      document.getElementById('passed-tests').textContent = passed;
+      document.getElementById('failed-tests').textContent = failed;
+    }
+
+    try {
+      // 1. Description Regex Checks
+      assert("Desc: 'Lunch at cafeteria' is valid", REGEX.description.test("Lunch at cafeteria"));
+      assert("Desc: Reject leading space", !REGEX.description.test(" Lunch"));
+      assert("Desc: Reject trailing space", !REGEX.description.test("Lunch "));
+      assert("Desc: Reject double spaces", !REGEX.description.test("Lunch  at"));
+
+      // 2. Advanced Regex: Duplicate words check (backreference)
+      assert("Advanced Regex: Detects duplicate 'at at'", REGEX.duplicateWords.test("Lunch at at cafeteria"));
+      assert("Advanced Regex: Detects duplicate 'bus bus' case insensitive", REGEX.duplicateWords.test("Bus bus pass"));
+      assert("Advanced Regex: Clean sentence does not trigger repeat check", !REGEX.duplicateWords.test("Bus pass home"));
+
+      // 3. Amount Regex Checks
+      assert("Amount: '12.50' is valid decimal", REGEX.amount.test("12.50"));
+      assert("Amount: '0' is valid format", REGEX.amount.test("0"));
+      assert("Amount: '99' is valid integer", REGEX.amount.test("99"));
+      assert("Amount: Reject negatives", !REGEX.amount.test("-12.50"));
+      assert("Amount: Reject alphabetics", !REGEX.amount.test("12abc"));
+      assert("Amount: Reject triple decimals", !REGEX.amount.test("12.345"));
+
+      // 4. Date Regex Checks
+      assert("Date: '2026-06-19' is valid format", REGEX.date.test("2026-06-19"));
+      assert("Date: Reject slashes", !REGEX.date.test("2026/06/19"));
+      assert("Date: Reject out of bounds month (13)", !REGEX.date.test("2026-13-19"));
+      assert("Date: Reject out of bounds day (32)", !REGEX.date.test("2026-06-32"));
+
+      // 5. Category Regex Checks
+      assert("Category: 'Food' is valid", REGEX.category.test("Food"));
+      assert("Category: 'Entertainment-Fees' is valid", REGEX.category.test("Entertainment-Fees"));
+      assert("Category: 'Other Expenses' is valid", REGEX.category.test("Other Expenses"));
+      assert("Category: Reject trailing space/hyphen", !REGEX.category.test("Food "));
+      assert("Category: Reject special characters", !REGEX.category.test("Food & Drink"));
+
+      // 6. validateTransaction Integration Checks
+      const validRecord = {
+        description: "Chemistry textbook",
+        amount: 89.99,
+        category: "Books",
+        date: "2026-06-13"
+      };
+      const resValid = validateTransaction(validRecord);
+      assert("validateTransaction: Accepts valid object", resValid.isValid, `Errors: ${JSON.stringify(resValid.errors)}`);
+
+      const invalidRecord = {
+        description: "Lunch  at  cafeteria",
+        amount: -5.00,
+        category: "Food 123",
+        date: "2026-02-30" // Calendar date error
+      };
+      const resInvalid = validateTransaction(invalidRecord);
+      assert("validateTransaction: Rejects invalid object", !resInvalid.isValid, `Captured Errors: ${JSON.stringify(resInvalid.errors)}`);
+      assert("validateTransaction: Detects description double spacing error", !!resInvalid.errors.description);
+      assert("validateTransaction: Detects negative amount", !!resInvalid.errors.amount);
+      assert("validateTransaction: Detects digits in category name", !!resInvalid.errors.category);
+      assert("validateTransaction: Detects non-existent calendar date", !!resInvalid.errors.date);
+
+      const duplicateTextRecord = {
+        description: "Dinner with with roommates",
+        amount: 15.00,
+        category: "Food",
+        date: "2026-06-19"
+      };
+      const resDuplicate = validateTransaction(duplicateTextRecord);
+      assert("validateTransaction: Captures and alerts duplicate word in description", 
+        !resDuplicate.isValid && resDuplicate.errors.description.includes("duplicate"),
+        `Errors: ${JSON.stringify(resDuplicate.errors)}`
+      );
+
+    } catch (err) {
+      assert("Execution: Suite ran successfully without crash", false, err.stack);
+    }
+  </script>
+</body>
+</html>
