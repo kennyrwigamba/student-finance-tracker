@@ -1,90 +1,142 @@
 # Student Finance Tracker - Responsive & Accessible Web Application
 
-An accessible, responsive, vanilla HTML/CSS/JS application that enables students to track personal budgets, record daily transactions, and analyze spending patterns.
-
-This project is built from scratch without external libraries or CSS frameworks. It uses a pure CSS Flexbox layout system and vanilla JS modules.
-
-## Deployment URL
-- **GitHub Pages URL**: `https://kennyrwigamba.github.io/student-finance-tracker/`
+A lightweight, accessible, and responsive personal budget planner designed specifically for university students. This application is built entirely from scratch using vanilla HTML5, CSS3, and ES6 JavaScript modules, adhering to clean-code standards suitable for educational web projects.
 
 ---
 
-## Key Features
-
-1. **SPA Section Layout**:
-   - Seamless tab-switching between the **Dashboard**, **Transactions**, **Settings**, and **About** pages with tab panel focus shifting for screen reader accessibility.
-2. **Dynamic Financial Dashboard**:
-   - Total spent calculations, item counts, and top spending category computation.
-   - Dynamic 7-day trend chart showing daily expenses, styled with vertical CSS flex columns and hover tooltip data.
-   - Budget Progress Tracker with live ARIA announcements (assertive alert when budget cap is exceeded, polite warning at 80% usage).
-3. **Advanced Settings Control**:
-   - Preferences selector to dynamically convert stored transaction values from USD base currency into **EUR** or **RWF** in the UI.
-   - Editable manual exchange rates (USD &rarr; EUR, USD &rarr; RWF) and budget cap settings.
-   - Dynamic Category Manager allowing users to add or remove custom labels.
-4. **Data Portability**:
-   - Backup files exported locally as structured JSON data.
-   - Backup JSON files imported and validated against schema formats to prevent corrupted data loading.
-5. **Interactive Records Management**:
-   - Table displaying items. Collapses automatically into structured cards on mobile devices.
-   - Inline row editing: clicking "Edit" replaces text fields with inputs directly inside the table row.
-   - Deletion validation prompts with state updates.
-6. **Real-time Regex Search & Filter**:
-   - Live query compiling inside a `try...catch` block.
-   - Color-coded text highlights using the HTML `<mark>` element without breaking screen reader compatibility.
+## 🔗 Deployment & Live Demo
+- **GitHub Pages Link**: [https://kennyrwigamba.github.io/student-finance-tracker/](https://kennyrwigamba.github.io/student-finance-tracker/)
+- **Video Demo Link**: [https://youtu.be/ruiscz11_MA](https://youtu.be/ruiscz11_MA)
 
 ---
 
-## Regex Catalog
+## ✨ Key Features
 
-The application relies on 5 core regular expressions located in [scripts/validators.js] for input validation and search matching:
+1. **Seamless SPA Routing**:
+   - Tab-switching between the **Dashboard**, **Transactions**, **Settings**, and **About** views.
+   - Managed programmatically with bookmarkable URL hashes (`#dashboard`, `#transactions`, etc.) and focus shifts for accessibility.
 
-| Field | Regular Expression Pattern | Purpose | Matching Examples | Non-Matching Examples |
+2. **Default Rwandan Currency (RWF)**:
+   - The application launches in **RWF (RF)** by default.
+   - Instantly converts base-currency records from internal USD storage to RWF, displaying clean formatted totals and rounded currency numbers without decimals.
+
+3. **Dynamic Financial Dashboard**:
+   - Calculated aggregates: Total Spent, transaction count, and the top-spending category.
+   - Interactive **Daily Expenses Chart** displaying trends over the last 7 days using pure CSS Flexbox bars.
+   - **Monthly Budget Cap Progress Tracker** with real-time ARIA alerts:
+     - **Assertive Announcement**: Triggered if spending exceeds the budget threshold.
+     - **Polite Announcement**: Triggered when spending crosses 80% of the limit.
+
+4. **Real-World Rwandan Student Seed Data**:
+   - Pre-populated with exactly **$200.00 USD** (equivalent to **260,000 RWF** at a 1300 RWF/USD rate) of realistic student expenses in Kigali, such as moto rides, Simba supermarket groceries, copy shop printing, MTN data bundles, and rent shares.
+
+5. **Advanced Settings & Category Manager**:
+   - Preferences menu to toggle the active view currency (**RWF**, **USD**, or **EUR**) with custom exchange rates.
+   - Category management form to add or delete transaction categories, ensuring at least one category remains.
+
+6. **Interactive Records Table**:
+   - Displays transactions in a clean responsive grid that automatically collapses into structured vertical cards on mobile screens (`< 768px`).
+   - Supports **inline row editing**, allowing students to update transaction details directly within the table.
+   - Safe deletion routines with confirmation alerts.
+
+7. **Live Regex Search & Highlight**:
+   - Real-time search matching compiled inside a `try...catch` block to handle query strings safely.
+   - Color-coded text highlights using the HTML `<mark>` tag to indicate matching regular expression patterns.
+
+8. **Data Backup & Portability**:
+   - Export transactions instantly to a local `.json` file backup.
+   - Import JSON back-ups with automated validation checks to prevent database corruption.
+
+---
+
+## 📊 Rwandan Student Seed Dataset ($200.00 USD / 260,000 RWF)
+
+The application initializes with the following seed transactions:
+
+| Description | Category | Base Cost (USD) | Default Cost (RWF) | Date |
 | :--- | :--- | :--- | :--- | :--- |
-| **Description** | `/^\S+(?:\s\S+)*$/` | Forbids leading/trailing spaces and consecutive multiple spaces. | `"Chemistry Textbook"`, `"Rent"` | `" Rent"`, `"Rent "`, `"Chemistry  Textbook"` |
-| **Amount** | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | Validates positive numbers with up to two decimal places. | `"45"`, `"12.50"`, `"0.99"` | `"-12.50"`, `"12abc"`, `"12.345"` |
-| **Date** | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` | Matches strictly YYYY-MM-DD calendar date strings. | `"2026-06-19"`, `"2025-12-31"` | `"2026/06/19"`, `"2026-13-19"`, `"2026-06-32"` |
-| **Category** | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | Validates alphabetic names containing hyphens or single spaces. | `"Food"`, `"Auto-insurance"`, `"Study Fees"` | `"Food123"`, `"Food "`, `"Food & Drink"` |
-| **Duplicate Words (Advanced)** | `/\b(\w+)\s+\1\b/i` | Captures consecutive duplicate words in a sentence using case-insensitive back-references. | `"Dinner with with roommates"`, `"at at"` | `"Dinner with roommates"`, `"bus pass"` |
+| Moto ride to Kigali Heights | Transport | $1.00 | RF 1,300 | 2026-06-12 |
+| Local lunch buffet in Remera | Food | $3.00 | RF 3,900 | 2026-06-13 |
+| Groceries at Simba Supermarket | Food | $20.00 | RF 26,000 | 2026-06-13 |
+| Notebooks and stationery from Papeterie | Books | $5.00 | RF 6,500 | 2026-06-14 |
+| Course handouts printing at copy shop | Books | $3.00 | RF 3,900 | 2026-06-14 |
+| MTN monthly internet data pack | Other | $8.00 | RF 10,400 | 2026-06-15 |
+| Tap and Go bus card reload | Transport | $10.00 | RF 13,000 | 2026-06-15 |
+| Student union registration fee | Fees | $10.00 | RF 13,000 | 2026-06-16 |
+| Late library return penalty | Fees | $2.00 | RF 2,600 | 2026-06-16 |
+| Movie ticket at Century Cinema | Entertainment | $5.00 | RF 6,500 | 2026-06-17 |
+| ALU student hoodie and merch | Other | $15.00 | RF 19,500 | 2026-06-17 |
+| Room rent contribution in Kimironko | Other | $75.00 | RF 97,500 | 2026-06-18 |
+| Campus cafeteria card meal reload | Food | $20.00 | RF 26,000 | 2026-06-18 |
+| Python programming textbook | Books | $15.00 | RF 19,500 | 2026-06-19 |
+| Friday evening brochette dinner | Entertainment | $8.00 | RF 10,400 | 2026-06-19 |
 
 ---
 
-## Keyboard Navigation Map
+## 🛠️ Codebase & Architecture
 
-This application is designed to be fully navigable using only a keyboard:
+The script files are structured inside the [scripts/](file:///d:/School/alu/courses/frontend-web-development/summative/student-finance-tracker-antigravity/scripts/) directory to teach modular design without dependency overheads:
 
-| Key | Target Element | Action / Outcome |
+```
+├── index.html           # Main SPA structure
+├── tests.html           # Unit test suite runner page
+├── seed.json            # Rwandan student transactions data
+├── styles/
+│   └── style.css        # Responsive CSS layout rules (< 540 lines)
+└── scripts/
+    ├── main.js          # App orchestrator and event binding (Flat variables)
+    ├── ui.js            # View renderers and DOM updater delegates (Flat variables)
+    ├── state.js         # Single source of truth (Settings, transactions, conversions)
+    ├── validators.js    # Data validation patterns & validation rules
+    ├── search.js        # Safe regex compiler and text highlighting
+    └── storage.js       # LocalStorage save/load helpers
+```
+
+### Clean Code Simplifications
+- **Flat DOM Variables**: The codebase defines separate, descriptive variables (e.g. `const tabs = document.querySelectorAll('.nav-btn');`) instead of complex object caches. This removes the `dom.` prefix and matches standard curriculum patterns.
+- **Beginner-Friendly Loops**: Replaced advanced array abstractions (like `.reduce()` and complex maps) with readable `for` loops.
+- **Explicit Conditionals**: Replaced nested short-circuit logic with clear `if-else` blocks.
+
+---
+
+## 📝 Regular Expressions Catalog
+
+Core validations are defined in [scripts/validators.js]:
+
+| Field | Regex Pattern | Purpose | Match Examples | Reject Examples |
+| :--- | :--- | :--- | :--- | :--- |
+| **Description** | `/^\S+(?:\s\S+)*$/` | Blocks leading, trailing, and consecutive spaces. | `"Chemistry Textbook"` | `" Food"`, `"Food "`, `"Food  Item"` |
+| **Amount** | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | Validates positive numbers with up to two decimals. | `"45"`, `"12.50"`, `"0.99"` | `"-10"`, `"12abc"`, `"1.234"` |
+| **Date** | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` | Matches calendar dates in YYYY-MM-DD format. | `"2026-06-19"` | `"2026/06/19"`, `"2026-13-19"`, `"2026-06-32"` |
+| **Category** | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | Validates category tags (letters, single spaces, or hyphens). | `"Food"`, `"Auto-insurance"` | `"Food12"`, `"Food "`, `"Food & Drink"` |
+| **Duplicate Words** | `/\b(\w+)\s+\1\b/i` | Detects duplicate consecutive words in descriptions. | `"with with"`, `"bus bus"` | `"with roommates"`, `"bus pass"` |
+
+---
+
+## ♿ Keyboard Navigation Map
+
+| Key | Target | Outcome |
 | :--- | :--- | :--- |
-| `Tab` | Any interactive element | Shifts focus forward to the next logical link, button, or input. |
-| `Shift + Tab` | Any interactive element | Shifts focus backward to the previous logical link, button, or input. |
-| `Enter` / `Space` | Buttons / Tabs | Activates a button action, toggles checkboxes, or opens navigation tabs. |
-| `Escape` | Form Inputs | Deselects active inputs or cancels text entries. |
-| `1` (via Skip link) | Top of Page | Activating the "Skip to Content" link shifts keyboard focus directly onto the `<main>` container, bypassing the header navigation. |
+| `Tab` | Interactive elements | Focuses the next focusable button, tab, link, or form control. |
+| `Shift + Tab` | Interactive elements | Focuses the previous focusable control. |
+| `Enter` / `Space` | Buttons & Tabs | Activates a button, switches tabs, or selects inputs. |
+| `Escape` | Form Inputs | Exits text entry fields. |
+| `Skip link` (Tab first) | Top of Page | Shifts keyboard focus directly to the main landmark, bypassing headers. |
 
 ---
 
-## Accessibility (a11y) Implementation Details
+## 🚀 Running the Project
 
-- **Semantic HTML5 Architecture**: Implements structured structural landmarks (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`) and appropriate heading hierarchies.
-- **Skip Link**: A hidden "Skip to Content" link appears at the very top of the page index when pressing `Tab`, letting users skip navigation menus.
-- **Explicit Inputs Labels**: Every form field, checkbox, selector, and search element contains associated, explicitly bound `<label>` tags (or `aria-label` attributes where appropriate).
-- **ARIA Live Regions**: Screen readers are notified of events (adding/deleting items, validation errors, and budget cap alerts) using a polite/assertive announcement container (`role="status"`, `aria-live="polite"`).
+### Local Server Setup
+Native ES Modules are restricted when loaded directly from the local filesystem (`file://`) due to browser CORS policies. You must run a local web server:
 
----
-
-## How to Run the Application & Tests
-
-### Running the App Locally
-Because the application uses native ES Modules, loading the files directly from the filesystem (`file://`) will trigger browser CORS restrictions. You must run a local web server:
-
-1. Ensure [Node.js](https://nodejs.org/) is installed.
-2. In the project root, install packages and start the server:
+1. Install [Node.js](https://nodejs.org/).
+2. Run the development server from the project directory:
    ```bash
    npm run dev
    ```
 3. Open your browser and navigate to `http://localhost:8080/`.
 
-### Running the Test Suite
-To run the automated validation assertions:
-1. Open the app server locally.
-2. Navigate to `http://localhost:8080/tests.html` or click the link in the footer of the application.
-3. The page will run the test runner and print visual reports of the 29 validation checks.
+### Run Validation Tests
+- Click the **Run Validators Test Suite** link in the footer of the application, or go directly to `http://localhost:8080/tests.html`.
+- The test suite executes **29 unit assertions** validating data integrity, pattern validations, calendar date logic (e.g. rejecting February 30th), and backreferences.
