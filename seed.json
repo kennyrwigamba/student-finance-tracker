@@ -1,101 +1,137 @@
 [
   {
     "id": "rec_0001",
-    "description": "Lunch at cafeteria",
-    "amount": 12.50,
-    "category": "Food",
+    "description": "Moto ride to Kigali Heights",
+    "amount": 1.00,
+    "category": "Transport",
     "date": "2026-06-12",
-    "createdAt": "2026-06-12T12:30:00.000Z",
-    "updatedAt": "2026-06-12T12:30:00.000Z"
+    "createdAt": "2026-06-12T10:00:00.000Z",
+    "updatedAt": "2026-06-12T10:00:00.000Z"
   },
   {
     "id": "rec_0002",
-    "description": "Chemistry textbook",
-    "amount": 89.99,
-    "category": "Books",
+    "description": "Local lunch buffet in Remera",
+    "amount": 3.00,
+    "category": "Food",
     "date": "2026-06-13",
-    "createdAt": "2026-06-13T10:15:00.000Z",
-    "updatedAt": "2026-06-13T10:15:00.000Z"
+    "createdAt": "2026-06-13T12:30:00.000Z",
+    "updatedAt": "2026-06-13T12:30:00.000Z"
   },
   {
     "id": "rec_0003",
-    "description": "Monthly bus pass",
-    "amount": 45.00,
-    "category": "Transport",
-    "date": "2026-06-14",
-    "createdAt": "2026-06-14T08:45:00.000Z",
-    "updatedAt": "2026-06-14T08:45:00.000Z"
+    "description": "Groceries at Simba Supermarket",
+    "amount": 20.00,
+    "category": "Food",
+    "date": "2026-06-13",
+    "createdAt": "2026-06-13T16:00:00.000Z",
+    "updatedAt": "2026-06-13T16:00:00.000Z"
   },
   {
     "id": "rec_0004",
-    "description": "Movie ticket with snacks",
-    "amount": 18.50,
-    "category": "Entertainment",
-    "date": "2026-06-15",
-    "createdAt": "2026-06-15T20:10:00.000Z",
-    "updatedAt": "2026-06-15T20:10:00.000Z"
+    "description": "Notebooks and stationery from Papeterie",
+    "amount": 5.00,
+    "category": "Books",
+    "date": "2026-06-14",
+    "createdAt": "2026-06-14T09:15:00.000Z",
+    "updatedAt": "2026-06-14T09:15:00.000Z"
   },
   {
     "id": "rec_0005",
-    "description": "Semester tuition fees deposit",
-    "amount": 500.00,
-    "category": "Fees",
-    "date": "2026-06-16",
-    "createdAt": "2026-06-16T09:00:00.000Z",
-    "updatedAt": "2026-06-16T09:00:00.000Z"
+    "description": "Course handouts printing at copy shop",
+    "amount": 3.00,
+    "category": "Books",
+    "date": "2026-06-14",
+    "createdAt": "2026-06-14T14:45:00.000Z",
+    "updatedAt": "2026-06-14T14:45:00.000Z"
   },
   {
     "id": "rec_0006",
-    "description": "Notebooks and pens",
-    "amount": 15.20,
-    "category": "Books",
-    "date": "2026-06-16",
-    "createdAt": "2026-06-16T14:30:00.000Z",
-    "updatedAt": "2026-06-16T14:30:00.000Z"
+    "description": "MTN monthly internet data pack",
+    "amount": 8.00,
+    "category": "Other",
+    "date": "2026-06-15",
+    "createdAt": "2026-06-15T08:00:00.000Z",
+    "updatedAt": "2026-06-15T08:00:00.000Z"
   },
   {
     "id": "rec_0007",
-    "description": "Coffee and croissant",
-    "amount": 6.80,
-    "category": "Food",
-    "date": "2026-06-17",
-    "createdAt": "2026-06-17T07:45:00.000Z",
-    "updatedAt": "2026-06-17T07:45:00.000Z"
+    "description": "Tap and Go bus card reload",
+    "amount": 10.00,
+    "category": "Transport",
+    "date": "2026-06-15",
+    "createdAt": "2026-06-15T17:30:00.000Z",
+    "updatedAt": "2026-06-15T17:30:00.000Z"
   },
   {
     "id": "rec_0008",
-    "description": "Uber ride to campus",
-    "amount": 22.40,
-    "category": "Transport",
-    "date": "2026-06-17",
-    "createdAt": "2026-06-17T17:15:00.000Z",
-    "updatedAt": "2026-06-17T17:15:00.000Z"
+    "description": "Student union registration fee",
+    "amount": 10.00,
+    "category": "Fees",
+    "date": "2026-06-16",
+    "createdAt": "2026-06-16T11:00:00.000Z",
+    "updatedAt": "2026-06-16T11:00:00.000Z"
   },
   {
     "id": "rec_0009",
-    "description": "Gym monthly membership",
-    "amount": 30.00,
-    "category": "Other",
-    "date": "2026-06-18",
-    "createdAt": "2026-06-18T11:00:00.000Z",
-    "updatedAt": "2026-06-18T11:00:00.000Z"
+    "description": "Late library return penalty",
+    "amount": 2.00,
+    "category": "Fees",
+    "date": "2026-06-16",
+    "createdAt": "2026-06-16T15:00:00.000Z",
+    "updatedAt": "2026-06-16T15:00:00.000Z"
   },
   {
     "id": "rec_0010",
-    "description": "Late library fee",
+    "description": "Movie ticket at Century Cinema",
     "amount": 5.00,
-    "category": "Fees",
-    "date": "2026-06-18",
-    "createdAt": "2026-06-18T16:00:00.000Z",
-    "updatedAt": "2026-06-18T16:00:00.000Z"
+    "category": "Entertainment",
+    "date": "2026-06-17",
+    "createdAt": "2026-06-17T19:00:00.000Z",
+    "updatedAt": "2026-06-17T19:00:00.000Z"
   },
   {
     "id": "rec_0011",
-    "description": "Dinner with roommates",
-    "amount": 35.75,
+    "description": "ALU student hoodie and merch",
+    "amount": 15.00,
+    "category": "Other",
+    "date": "2026-06-17",
+    "createdAt": "2026-06-17T14:00:00.000Z",
+    "updatedAt": "2026-06-17T14:00:00.000Z"
+  },
+  {
+    "id": "rec_0012",
+    "description": "Room rent contribution in Kimironko",
+    "amount": 75.00,
+    "category": "Other",
+    "date": "2026-06-18",
+    "createdAt": "2026-06-18T09:00:00.000Z",
+    "updatedAt": "2026-06-18T09:00:00.000Z"
+  },
+  {
+    "id": "rec_0013",
+    "description": "Campus cafeteria card meal reload",
+    "amount": 20.00,
     "category": "Food",
+    "date": "2026-06-18",
+    "createdAt": "2026-06-18T12:00:00.000Z",
+    "updatedAt": "2026-06-18T12:00:00.000Z"
+  },
+  {
+    "id": "rec_0014",
+    "description": "Python programming textbook",
+    "amount": 15.00,
+    "category": "Books",
     "date": "2026-06-19",
-    "createdAt": "2026-06-19T19:30:00.000Z",
-    "updatedAt": "2026-06-19T19:30:00.000Z"
+    "createdAt": "2026-06-19T10:00:00.000Z",
+    "updatedAt": "2026-06-19T10:00:00.000Z"
+  },
+  {
+    "id": "rec_0015",
+    "description": "Friday evening brochette dinner",
+    "amount": 8.00,
+    "category": "Entertainment",
+    "date": "2026-06-19",
+    "createdAt": "2026-06-19T20:30:00.000Z",
+    "updatedAt": "2026-06-19T20:30:00.000Z"
   }
 ]
