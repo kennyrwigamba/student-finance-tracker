@@ -665,3 +665,62 @@ mark.search-match {
 .status-msg.error {
   color: var(--danger-color);
 }
+
+/* 13. About Tab */
+.about-card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.about-section-spacing {
+  margin-top: 1rem;
+}
+
+.about-list {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.contact-info {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.contact-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* 14. Footer */
+.app-footer {
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  padding: 1rem;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.footer-container nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-container nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.footer-container nav a:hover {
+  color: var(--primary-color);
+}
