@@ -82,7 +82,7 @@ The script files are structured inside the [scripts/](file:///d:/School/alu/cour
 ├── tests.html           # Unit test suite runner page
 ├── seed.json            # Rwandan student transactions data
 ├── styles/
-│   └── style.css        # Responsive CSS layout rules (< 540 lines)
+│   └── style.css        # Responsive CSS layout rules
 └── scripts/
     ├── main.js          # App orchestrator and event binding (Flat variables)
     ├── ui.js            # View renderers and DOM updater delegates (Flat variables)
