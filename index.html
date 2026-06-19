@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Finance Tracker</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Hugeicons CDN -->
-    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css">
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Finance Tracker</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Hugeicons CDN -->
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
+
 <body>
   <!-- Keyboard Accessibility: Skip to main content link -->
   <a href="#main-content" class="skip-link">Skip to Content</a>
@@ -54,8 +56,64 @@
     </div>
   </header>
 
+  <!-- Main Content -->
+  <main id="main-content" tabindex="-1">
+    <div class="main-container">
+      <!-- ARIA Live Region for Screen Readers -->
+      <div id="aria-alerts" class="sr-only" role="status" aria-live="polite"></div>
 
+      <!-- 1. DASHBOARD SECTION -->
+      <section id="dashboard" class="tab-content" role="tabpanel" aria-labelledby="tab-dashboard" tabindex="0">
+        <div class="section-header">
+          <h2>Financial Dashboard</h2>
+          <p class="section-desc">
+            Overview of your expenses, budget, and trends.
+          </p>
+        </div>
 
-    <script src="scripts/script.js"></script>
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <h3>Total Transactions</h3>
+            <p id="stat-count" class="stat-value">0</p>
+            <span class="stat-meta">Transactions</span>
+          </div>
+          <div class="card stat-card">
+            <h3>Total Expenses</h3>
+            <p id="stat-spent" class="stat-value">$0.00</p>
+            <span class="stat-meta">Base currency</span>
+          </div>
+          <div class="card stat-card">
+            <h3>Top Spending Category</h3>
+            <p id="stat-top-cat" class="stat-value">—</p>
+            <span class="stat-meta" id="stat-top-cat-amt">$0.00 spent</span>
+          </div>
+          <div class="card stat-card" id="budget-cap-card">
+            <h3>Budget Cap Progress</h3>
+            <p id="stat-budget-remaining" class="stat-value">$0.00</p>
+            <div class="progress-bar-container">
+              <div id="budget-progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <span id="stat-budget-status" class="stat-meta">Remaining of $0.00 limit</span>
+          </div>
+        </div>
+
+        <!-- Weekly Trend Chart -->
+        <div class="card dashboard-chart-card">
+          <h3>Daily Expenses (Last 7 Days)</h3>
+          <p class="chart-subtitle">Expenses in active currency</p>
+          <div class="chart-container" id="chart-bars-container">
+            <!-- Rendered dynamically by JS -->
+            <div class="chart-empty-state">
+              No transaction history in the last 7 days.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="scripts/script.js"></script>
 </body>
+
 </html>
