@@ -4,13 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Finance Tracker</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Huge Icons -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hugeicons CDN -->
     <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
+    
+  <!-- Keyboard Accessibility: Skip to main content link -->
+  <a href="#main-content" class="skip-link">Skip to Content</a>
 
-    <script src="js/script.js"></script>
+  <!-- Primary Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-icon" aria-hidden="true">
+          <i class="hgi hgi-stroke hgi-rounded hgi-wallet-02"></i>
+        </span>
+        <h1>Student Finance Tracker</h1>
+      </div>
+      <nav aria-label="Main Navigation" class="app-nav">
+        <ul role="tablist" class="nav-list">
+          <li role="presentation">
+            <button id="tab-dashboard" role="tab" aria-selected="true" aria-controls="dashboard" class="nav-btn active">
+              <i class="hgi hgi-stroke hgi-rounded hgi-dashboard-circle" aria-hidden="true"></i>
+              Dashboard
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-transactions" role="tab" aria-selected="false" aria-controls="transactions" class="nav-btn">
+              <i class="hgi hgi-stroke hgi-rounded hgi-transaction" aria-hidden="true"></i>
+              Transactions
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-settings" role="tab" aria-selected="false" aria-controls="settings" class="nav-btn">
+              <i class="hgi hgi-stroke hgi-rounded hgi-settings-01" aria-hidden="true"></i>
+              Settings
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-about" role="tab" aria-selected="false" aria-controls="about" class="nav-btn">
+              <i class="hgi hgi-stroke hgi-rounded hgi-information-circle" aria-hidden="true"></i>
+              About
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+
+    <script src="scripts/script.js"></script>
 </body>
 </html>
