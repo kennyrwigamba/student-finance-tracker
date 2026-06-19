@@ -210,6 +210,104 @@
           </div>
         </div>
       </section>
+
+            <!-- 3. SETTINGS SECTION -->
+      <section id="settings" class="tab-content hidden" role="tabpanel" aria-labelledby="tab-settings" tabindex="0">
+        <div class="section-header">
+          <h2>Application Settings</h2>
+          <p class="section-desc">Configure currency, budget limit, and custom categories.</p>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Currency Preferences -->
+          <div class="card settings-card">
+            <h3>Currency Configuration</h3>
+            <p class="settings-card-desc">Dynamic conversions based on custom rates.</p>
+            
+            <form id="settings-currency-form">
+              <div class="form-group">
+                <label for="active-currency-select">Active View Currency</label>
+                <select id="active-currency-select" class="input-control">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="RWF">RWF (RF)</option>
+                </select>
+              </div>
+
+              <div class="rates-wrapper">
+                <h4>Manual Exchange Rates (per 1 USD)</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="rate-eur">EUR Rate</label>
+                    <input type="number" id="rate-eur" class="input-control" step="0.0001" min="0.0001" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="rate-rwf">RWF Rate</label>
+                    <input type="number" id="rate-rwf" class="input-control" step="1" min="1" required>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn-secondary">Save Currency Settings</button>
+            </form>
+          </div>
+
+          <!-- Budget Cap Settings -->
+          <div class="card settings-card">
+            <h3>Budget Limit Settings</h3>
+            <p class="settings-card-desc">Set a monthly spending threshold in USD.</p>
+            
+            <form id="settings-budget-form">
+              <div class="form-group">
+                <label for="budget-cap-input">Monthly Budget Cap (USD)</label>
+                <div class="input-currency-wrapper">
+                  <span class="currency-prefix">$</span>
+                  <input type="number" id="budget-cap-input" class="input-control" min="0" step="1" required>
+                </div>
+              </div>
+              <button type="submit" class="btn-secondary">Update Budget Cap</button>
+            </form>
+          </div>
+
+          <!-- Categories Manager -->
+          <div class="card settings-card">
+            <h3>Category Manager</h3>
+            <p class="settings-card-desc">Manage custom transaction categories.</p>
+            
+            <form id="add-category-form" novalidate>
+              <div class="form-group-inline">
+                <div class="form-group">
+                  <label for="new-category-input" class="sr-only">New Category</label>
+                  <input type="text" id="new-category-input" class="input-control" placeholder="e.g. Subscriptions" required>
+                </div>
+                <button type="submit" class="btn-secondary">Add</button>
+              </div>
+              <span id="category-add-error" class="error-msg" aria-live="polite"></span>
+            </form>
+
+            <ul id="categories-list" class="settings-list" aria-label="Available Categories">
+              <!-- Loaded dynamically -->
+            </ul>
+          </div>
+
+          <!-- Import / Export -->
+          <div class="card settings-card">
+            <h3>Data Portability</h3>
+            <p class="settings-card-desc">Export data or import backup JSON.</p>
+            
+            <div class="portability-buttons">
+              <button id="btn-export" class="btn-outline">Export JSON</button>
+              
+              <div class="import-wrapper">
+                <label for="file-import" class="btn-outline clickable-label">
+                  Import JSON File
+                </label>
+                <input type="file" id="file-import" accept=".json" class="sr-only">
+              </div>
+            </div>
+            <p id="portability-status" class="status-msg" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
