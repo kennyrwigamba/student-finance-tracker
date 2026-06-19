@@ -1,0 +1,20 @@
+{
+  "name": "student-finance-tracker",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Accessible, responsive Student Finance Tracker built using vanilla HTML/CSS/JS and Flexbox.",
+  "main": "scripts/main.js",
+  "scripts": {
+    "start": "npx http-server -p 8080",
+    "dev": "npx http-server -p 8080"
+  },
+  "keywords": [
+    "finance",
+    "tracker",
+    "responsive",
+    "accessibility",
+    "vanilla-js"
+  ],
+  "author": "Kenny Rwigamba",
+  "license": "ISC"
+}
