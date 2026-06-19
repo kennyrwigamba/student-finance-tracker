@@ -80,21 +80,21 @@
           </div>
           <div class="card stat-card">
             <h3>Total Expenses</h3>
-            <p id="stat-spent" class="stat-value">$0.00</p>
+            <p id="stat-spent" class="stat-value">RWF0.00</p>
             <span class="stat-meta">Base currency</span>
           </div>
           <div class="card stat-card">
             <h3>Top Spending Category</h3>
             <p id="stat-top-cat" class="stat-value">—</p>
-            <span class="stat-meta" id="stat-top-cat-amt">$0.00 spent</span>
+            <span class="stat-meta" id="stat-top-cat-amt">RWF0.00 spent</span>
           </div>
           <div class="card stat-card" id="budget-cap-card">
             <h3>Budget Cap Progress</h3>
-            <p id="stat-budget-remaining" class="stat-value">$0.00</p>
+            <p id="stat-budget-remaining" class="stat-value">RWF0.00</p>
             <div class="progress-bar-container">
               <div id="budget-progress-bar" class="progress-bar" style="width: 0%"></div>
             </div>
-            <span id="stat-budget-status" class="stat-meta">Remaining of $0.00 limit</span>
+            <span id="stat-budget-status" class="stat-meta">Remaining of RWF0.00 limit</span>
           </div>
         </div>
 
@@ -126,15 +126,15 @@
             <form id="add-transaction-form" novalidate>
               <div class="form-group">
                 <label for="txn-description">Description / Title</label>
-                <input type="text" id="txn-description" class="input-control" name="description" placeholder="e.g. Chemistry Textbook" required aria-describedby="desc-error">
+                <input type="text" id="txn-description" class="input-control" name="description" placeholder="e.g. Restaurant" required aria-describedby="desc-error">
                 <span id="desc-error" class="error-msg" aria-live="polite"></span>
               </div>
 
               <div class="form-group">
                 <label for="txn-amount">Amount</label>
                 <div class="input-currency-wrapper">
-                  <span id="form-currency-symbol" class="currency-prefix">$</span>
-                  <input type="number" id="txn-amount" class="input-control" name="amount" placeholder="0.00" step="0.01" required aria-describedby="amount-error">
+                  <span id="form-currency-symbol" class="currency-prefix">RWF</span>
+                  <input type="number" id="txn-amount" class="input-control" name="amount" placeholder="0" step="1" required aria-describedby="amount-error">
                 </div>
                 <span id="amount-error" class="error-msg" aria-live="polite"></span>
               </div>
@@ -155,7 +155,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn-primary">Add Transaction</button>
+              <button type="submit" class="btn-secondary">Add Transaction</button>
             </form>
           </div>
 
@@ -230,7 +230,7 @@
                 <select id="active-currency-select" class="input-control">
                   <option value="USD">USD ($)</option>
                   <option value="EUR">EUR (€)</option>
-                  <option value="RWF">RWF (RF)</option>
+                  <option value="RWF" selected>RWF (RWF)</option>
                 </select>
               </div>
 
@@ -347,8 +347,7 @@
     <div class="footer-container">
       <p>&copy; 2026 Student Finance Tracker. Developed by <a href="https://rwigamba-portfolio.vercel.app" target="_blank" rel="noopener noreferrer">Kenny Rwigamba</a></p>
       <nav aria-label="Footer Quick Links">
-        <a href="#main-content">Back to Top</a>
-        <a href="tests.html">Run Validators Test Suite</a>
+        <a href="tests.html">Run Validators Test</a>
       </nav>
     </div>
   </footer>

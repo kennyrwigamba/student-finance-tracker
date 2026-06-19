@@ -176,8 +176,8 @@ function bindEventListeners() {
     e.preventDefault();
     
     const selectedCurr = dom.activeCurrencySelect.value;
-    const rateEur = parseFloat(dom.rateEur.value) || 0.92;
-    const rateRwf = parseFloat(dom.rateRwf.value) || 1300;
+    const rateEur = parseFloat(dom.rateEur.value) || 0.87;
+    const rateRwf = parseFloat(dom.rateRwf.value) || 1460;
 
     state.updateCurrencyRate('EUR', rateEur);
     state.updateCurrencyRate('RWF', rateRwf);

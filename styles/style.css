@@ -1,10 +1,11 @@
 /* CSS Variables */
 :root {
-  --primary-color: #4f46e5;
+  --primary-color: #2b2686;
   --primary-hover: #4338ca;
   --primary-light: #e0e7ff;
   --text-primary: #0f172a;
   --text-secondary: #475569;
+  --text-secondary-dark: #393e49;
   --text-muted: #94a3b8;
   --bg-app: #f8fafc;
   --bg-card: #ffffff;
@@ -16,8 +17,8 @@
   --danger-bg: #fef2f2;
   --success-bg: #ecfdf5;
   
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
   --border-radius-lg: 50px;
 }
 
@@ -27,6 +28,14 @@
   margin: 0;
   padding: 0;
   font-family: 'Sora', sans-serif;
+}
+
+/* Reusable Classes */
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-secondary-dark);
 }
 
 body {
@@ -84,11 +93,15 @@ body {
 
 .logo-area h1 {
   font-size: 1.25rem;
-  color: var(--primary-color);
+  color: var(--text-secondary)
 }
 
 .app-nav {
   width: 100%;
+  overflow: auto;
+}
+.app-nav::-webkit-scrollbar, .chart-container::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-list {
@@ -137,7 +150,7 @@ main:focus {
   gap: 1.5rem;
 }
 
-/* 5. Tab Panels */
+/* Tab Panels */
 .tab-content {
   display: block;
 }
@@ -151,7 +164,8 @@ main:focus {
 }
 
 .section-header h2 {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .section-desc {
@@ -159,18 +173,12 @@ main:focus {
   color: var(--text-secondary);
 }
 
-/* 6. Cards & Stats */
+/* Cards & Stats */
 .card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
   padding: 1.25rem;
-}
-
-h3 {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
 }
 
 .stats-grid {
@@ -186,13 +194,14 @@ h3 {
 
 .stat-card h3 {
   font-size: 0.85rem;
+  font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 0.25rem;
 }
 
 .stat-value {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .stat-meta {
@@ -232,7 +241,7 @@ h3 {
   background-color: var(--danger-color);
 }
 
-/* 7. Dynamic Trend Chart */
+/* Dynamic Trend Chart */
 .dashboard-chart-card{
   margin-top: 1rem;
 }
@@ -250,6 +259,7 @@ h3 {
   height: 160px;
   border-bottom: 2px solid var(--border-color);
   gap: 0.5rem;
+  overflow-y: auto;
 }
 
 .chart-bar-wrapper {
@@ -275,18 +285,18 @@ h3 {
 
 .chart-bar {
   width: 100%;
-  max-width: 32px;
+  max-width: 22px;
   background-color: var(--primary-light);
   border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
   cursor: pointer;
 }
 
 .chart-bar:hover {
-  background-color: var(--primary-color);
+  background-color: var(--text-secondary);
 }
 
 .chart-bar.today {
-  border: 2px solid var(--primary-hover);
+  border: 2px solid var(--text-secondary);
 }
 
 .chart-bar-label {
@@ -304,7 +314,7 @@ h3 {
   font-size: 0.85rem;
 }
 
-/* 8. Form Fields & Inputs */
+/* Form Fields & Inputs */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -361,12 +371,12 @@ h3 {
   min-height: 1rem;
 }
 
-/* 9. Buttons */
+/* Buttons */
 .btn-primary, .btn-secondary, .btn-outline {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-lg);
   border: none;
   display: inline-flex;
   justify-content: center;
@@ -403,7 +413,7 @@ h3 {
   background-color: #f1f5f9;
 }
 
-/* 10. Search & Filtering */
+/* Search & Filtering */
 .list-controls {
   display: flex;
   flex-direction: column;
@@ -493,7 +503,7 @@ mark.search-match {
   font-weight: 600;
 }
 
-/* 11. Table & Inline Editing */
+/* Table & Inline Editing */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -566,7 +576,7 @@ mark.search-match {
   color: white;
 }
 
-/* 12. Settings Tab */
+/* Settings Tab */
 .settings-grid {
   display: flex;
   flex-direction: column;
@@ -670,7 +680,7 @@ mark.search-match {
   color: var(--danger-color);
 }
 
-/* 13. About Tab */
+/* About Tab */
 .about-card p {
   font-size: 0.9rem;
   line-height: 1.5;
@@ -697,7 +707,7 @@ mark.search-match {
   text-decoration: none;
 }
 
-/* 14. Footer */
+/* Footer */
 .app-footer {
   background-color: var(--bg-card);
   border-top: 1px solid var(--border-color);
@@ -729,7 +739,7 @@ mark.search-match {
   color: var(--primary-color);
 }
 
-/* 15. Media Queries */
+/* Media Queries */
 
 /* Mobile Table Cards */
 @media (max-width: 767px) {
@@ -804,6 +814,10 @@ mark.search-match {
   .stat-card {
     flex: 1;
     min-width: 200px;
+  }
+
+  .chart-bar {
+    max-width: 50px;
   }
   
   .form-row {

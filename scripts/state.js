@@ -8,10 +8,10 @@ const DEFAULT_SETTINGS = {
   baseCurrency: "USD",
   currencies: {
     USD: 1.00,
-    EUR: 0.92,
-    RWF: 1300.00
+    EUR: 0.87,
+    RWF: 1460.00
   },
-  activeCurrency: "USD",
+  activeCurrency: "RWF",
   categories: ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"]
 };
 
@@ -22,10 +22,10 @@ export const state = {
     baseCurrency: "USD",
     currencies: {
       USD: 1.00,
-      EUR: 0.92,
-      RWF: 1300.00
+      EUR: 0.87,
+      RWF: 1460.00
     },
-    activeCurrency: "USD",
+    activeCurrency: "RWF",
     categories: ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"]
   },
   
@@ -42,13 +42,16 @@ export const state = {
     
     // Fallbacks if data structures are missing
     if (!this.settings.currencies) {
-      this.settings.currencies = { USD: 1.00, EUR: 0.92, RWF: 1300.00 };
+      this.settings.currencies = { USD: 1.00, EUR: 0.87, RWF: 1460.00 };
     }
     if (!this.settings.categories) {
       this.settings.categories = ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"];
     }
     if (!this.settings.budgetCap) {
       this.settings.budgetCap = 300.00;
+    }
+    if (!this.settings.activeCurrency) {
+      this.settings.activeCurrency = "RWF";
     }
   },
 
@@ -207,7 +210,7 @@ export const state = {
     const symbols = {
       USD: '$',
       EUR: '€',
-      RWF: 'RF '
+      RWF: 'RWF '
     };
     const symbol = symbols[currencyCode] || '';
     
